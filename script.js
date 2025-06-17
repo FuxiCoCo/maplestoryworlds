@@ -1,77 +1,54 @@
-function calculate() {
-  recalcB();
+// 🔧 綁定 HTML 元素
+const c_item = document.getElementById("c_item");
+const c_qty = document.getElementById("c_qty");
+const c_pay_unit = document.getElementById("c_pay_unit");
+const c_pay_amt = document.getElementById("c_pay_amt");
+const result = document.getElementById("result");
 
-  const item = c_item.value;
-  const qty = parseFloat(c_qty.value);
-  const payUnit = c_pay_unit.value;
-  const payAmt = parseFloat(c_pay_amt.value);
+const b_ntd = document.getElementById("b_ntd");
+const b_wc = document.getElementById("b_wc");
+const b_snow = document.getElementById("b_snow");
+const b_meso = document.getElementById("b_meso");
+const b_bag = document.getElementById("b_bag");
+const b_amulet = document.getElementById("b_amulet");
+const b_gem = document.getElementById("b_gem");
+const rateSnow = document.getElementById("rateSnow");
 
-  if (isNaN(qty) || isNaN(payAmt) || qty <= 0 || payAmt <= 0) {
-    result.innerHTML = `<p style="color: red;">請輸入有效的數量與付款數值</p>`;
-    return;
-  }
+// 數字處理
+const toFixed = (val, d = 2) => parseFloat(val.toFixed(d));
 
-  const costPer = convertUnit(item, 1);
-  const costTotal = costPer * qty;
-  const payTotal = convertUnit(payUnit, payAmt);
-  const diff = toFixed(payTotal - costTotal);
-  const rate = toFixed(((payTotal - costTotal) / costTotal) * 100);
-  const absRate = Math.abs(rate);
+// B區換算邏輯
+function recalcB() {
+  const r = parseFloat(rateSnow.value); // 雪花兌換楓幣
+  const wpc = 300 / 11; // 每雪花多少WC
+  const ntdpw = 120 / 800; // 每WC多少台幣
 
-  let judge = "";
-  let color = "";
+  const b = {
+    ntd: b_ntd,
+    wc: b_wc,
+    snow: b_snow,
+    meso: b_meso,
+    bag: b_bag,
+    amulet: b_amulet,
+    gem: b_gem
+  };
 
-  if (diff === 0) {
-    judge = "完美平衡";
-    color = "#FFD700"; // 金色
-  } else if (diff < 0) {
-    // 賺錢
-    if (absRate <= 15) {
-      judge = "15%內賺水錢";
-      color = "#888888";
-    } else if (absRate <= 35) {
-      judge = "木盾";
-      color = "#FFFFFF";
-    } else if (absRate <= 55) {
-      judge = "木盾(+1)";
-      color = "#FFA500";
-    } else if (absRate <= 75) {
-      judge = "木盾(+4)";
-      color = "#00BFFF";
-    } else if (absRate <= 100) {
-      judge = "木盾(+6)";
-      color = "#9932CC";
-    } else {
-      judge = "鑽盾";
-      color = "#FFD700";
-    }
-  } else {
-    // 虧錢
-    if (absRate <= 15) {
-      judge = "15%以內水錢平衡";
-      color = "#888888";
-    } else if (absRate <= 35) {
-      judge = "盤子";
-      color = "#FFFFFF";
-    } else if (absRate <= 55) {
-      judge = "盤子(+1)";
-      color = "#FFA500";
-    } else if (absRate <= 75) {
-      judge = "盤子(+4)";
-      color = "#00BFFF";
-    } else if (absRate <= 100) {
-      judge = "盤子(+6)";
-      color = "#9932CC";
-    } else {
-      judge = "究極美盤";
-      color = "#FFD700";
+  let source = null;
+  for (let k in b) {
+    const v = parseFloat(b[k].value);
+    if (!isNaN(v) && b[k] === document.activeElement) {
+      source = [k, v];
+      break;
     }
   }
 
-  result.innerHTML = `
-    <p>你買 ${qty} 個 ${item} 的成本：約 <strong>${costTotal.toLocaleString()}</strong> 楓幣</p>
-    <p>付款折算後為：<strong>${payTotal.toLocaleString()}</strong> 楓幣</p>
-    <p>差額：<strong>${diff.toLocaleString()}</strong> 楓幣（${rate}%）</p>
-    <p><strong style="color:${color}; font-size: 1.3em;">結論：${judge}</strong></p>
-  `;
-}
+  if (!source) return;
+
+  let wc = 0;
+  switch (source[0]) {
+    case 'ntd': wc = source[1] / ntdpw; break;
+    case 'wc': wc = source[1]; break;
+    case 'snow': wc = source[1] * wpc; break;
+    case 'meso': wc = source[1] * wpc / r; break;
+    case 'bag': wc = source[1] * 250; break;
+    case 'amu
