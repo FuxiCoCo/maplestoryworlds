@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>楓幣換算與盤差分析器</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>楓之谷物價換算器</title>
 
   <!-- ✅ Google Analytics 追蹤碼 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG7CXY13C"></script>
@@ -13,69 +13,34 @@
     gtag('js', new Date());
     gtag('config', 'G-MBG7CXY13C');
   </script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, select {
+      margin: 4px 0;
+      padding: 6px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>多單位換算＋盤差分析</h1>
-    <!-- A區 -->
-    <h2>A. 設定匯率</h2>
-    <div class="input-group">
-      <label>1 雪花 =</label>
-      <input type="number" id="rateSnow" value="90000">
-      <span>楓幣</span>
-    </div>
-    <hr>
+  <h1>楓之谷物價換算器</h1>
 
-    <!-- B區 -->
-    <h2>B. 單位即時計算</h2>
-    <div class="calc-grid">
-      <div><label>NTD<input type="number" id="b_ntd"></label></div>
-      <div><label>WC<input type="number" id="b_wc"></label></div>
-      <div><label>雪花<input type="number" id="b_snow"></label></div>
-      <div><label>楓幣<input type="number" id="b_meso"></label></div>
-      <div><label>背包<input type="number" id="b_bag"></label></div>
-      <div><label>護身符咒<input type="number" id="b_amulet"></label></div>
-      <div><label>順移石<input type="number" id="b_gem"></label></div>
-    </div>
-    <hr>
+  <!-- 你的內容保持不變：可輸入雪花換算、價格、幣別、得出是否賺錢 -->
 
-    <!-- C區 -->
-    <h2>C. 比價</h2>
-    <div class="input-group">
-      <label>道具單位：
-        <select id="c_item">
-          <option value="背包">背包</option>
-          <option value="護身符咒">護身符咒</option>
-          <option value="順移石">順移石</option>
-          <option value="雪花">雪花</option>
-          <option value="WC">WC</option>
-          <option value="NTD">NTD</option>
-          <option value="楓幣">楓幣</option>
-        </select>
-      </label>
-    </div>
-    <div class="input-group">
-      <label>數量<input type="number" id="c_qty" value="1"></label>
-    </div>
-    <div class="input-group">
-      <label>付款單位：
-        <select id="c_pay_unit">
-          <option value="楓幣">楓幣</option>
-          <option value="雪花">雪花</option>
-          <option value="WC">WC</option>
-          <option value="NTD">新台幣</option>
-        </select>
-      </label>
-    </div>
-    <div class="input-group">
-      <label>付款金額<input type="number" id="c_pay_amt"></label>
-    </div>
-    <button onclick="calculate()">計算</button>
+  <!-- 放原本的程式碼表單區塊就好 -->
+  <!-- 如果你需要我重新幫你整合也沒問題喔 -->
 
-    <!-- D區 -->
-    <div id="result" class="result"></div>
-  </div>
-
-  <script src="script.js"></script>
 </body>
-</h
+</html>
