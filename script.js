@@ -94,11 +94,11 @@ function calculate() {
   } else if (diff > 0) {
     // 虧錢區間（賠方）
     if (rate <= 15) {
-      conclusion = "15%以內水錢平衡";
+      conclusion = "虧 15%內 油水平衡";
       color = "gray";
     } else if (rate <= 35) {
       conclusion = "盤子";
-      color = "white";
+      color = "#94949e";
     } else if (rate <= 55) {
       conclusion = "盤子(+1)";
       color = "orange";
@@ -116,22 +116,22 @@ function calculate() {
     // 賺錢區間（賺方）
     const posRate = Math.abs(rate);
     if (posRate <= 15) {
-      conclusion = "15%內賺水錢";
+      conclusion = "賺 15%內 拿點水錢";
       color = "gray";
     } else if (posRate <= 35) {
-      conclusion = "木盾";
-      color = "white";
+      conclusion = "賺 基礎木盾";
+      color = "#94949e";
     } else if (posRate <= 55) {
-      conclusion = "木盾(+1)";
+      conclusion = "賺 木盾(+1)";
       color = "orange";
     } else if (posRate <= 75) {
-      conclusion = "木盾(+4)";
+      conclusion = "賺 木盾(+4)";
       color = "blue";
     } else if (posRate <= 100) {
-      conclusion = "木盾(+6)";
+      conclusion = "賺 木盾(+6)";
       color = "purple";
     } else {
-      conclusion = "鑽盾";
+      conclusion = "賺 鑽盾";
       color = "#FFD700";
     }
   }
