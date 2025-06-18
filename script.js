@@ -84,12 +84,62 @@ function calculate() {
   const payTotal = convertUnit(payUnit, payAmt);
   const diff = toFixed(payTotal - costTotal);
   const rate = toFixed(((payTotal - costTotal) / costTotal) * 100);
-  const judge = diff > 0 ? "盤子！" : diff < 0 ? "賺錢！" : "打平！";
+
+  let conclusion = "";
+  let color = "";
+
+  if (Math.abs(diff) < 0.001) {
+    conclusion = "完美平衡";
+    color = "gold";
+  } else if (diff > 0) {
+    // 虧錢區間（賠方）
+    if (rate <= 15) {
+      conclusion = "15%以內水錢平衡";
+      color = "gray";
+    } else if (rate <= 35) {
+      conclusion = "盤子";
+      color = "white";
+    } else if (rate <= 55) {
+      conclusion = "盤子(+1)";
+      color = "orange";
+    } else if (rate <= 75) {
+      conclusion = "盤子(+4)";
+      color = "blue";
+    } else if (rate <= 100) {
+      conclusion = "盤子(+6)";
+      color = "purple";
+    } else {
+      conclusion = "究極美盤";
+      color = "#FFD700";
+    }
+  } else {
+    // 賺錢區間（賺方）
+    const posRate = Math.abs(rate);
+    if (posRate <= 15) {
+      conclusion = "15%內賺水錢";
+      color = "gray";
+    } else if (posRate <= 35) {
+      conclusion = "木盾";
+      color = "white";
+    } else if (posRate <= 55) {
+      conclusion = "木盾(+1)";
+      color = "orange";
+    } else if (posRate <= 75) {
+      conclusion = "木盾(+4)";
+      color = "blue";
+    } else if (posRate <= 100) {
+      conclusion = "木盾(+6)";
+      color = "purple";
+    } else {
+      conclusion = "鑽盾";
+      color = "#FFD700";
+    }
+  }
 
   result.innerHTML = `
     <p>你買 ${qty} 個 ${item} 的成本：約 <strong>${costTotal.toLocaleString()}</strong> 楓幣</p>
     <p>付款折算後為：<strong>${payTotal.toLocaleString()}</strong> 楓幣</p>
     <p>差額：<strong>${diff.toLocaleString()}</strong> 楓幣（${rate}%）</p>
-    <p><strong>結論：${judge}</strong></p>
+    <p><strong style="color:${color}; font-weight:bold;">結論：${conclusion}</strong></p>
   `;
 }
