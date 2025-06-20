@@ -107,5 +107,51 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      // A區：追蹤匯率輸入
+      const rateInput = document.getElementById("rateSnow");
+      rateInput.addEventListener("change", function () {
+        gtag('event', 'set_rate', {
+          event_category: 'A區',
+          event_label: '匯率輸入',
+          value: parseInt(rateInput.value)
+        });
+      });
+
+      // B區：追蹤任一數值輸入
+      const bZoneFields = ['b_ntd', 'b_wc', 'b_snow', 'b_meso', 'b_bag', 'b_amulet', 'b_gem'];
+      bZoneFields.forEach(id => {
+        const field = document.getElementById(id);
+        field.addEventListener("input", function () {
+          gtag('event', 'bzone_input', {
+            event_category: 'B區',
+            event_label: id,
+            value: parseFloat(field.value) || 0
+          });
+        });
+      });
+
+      // C區：追蹤「計算」按鈕點擊
+      const calcBtn = document.querySelector("button[onclick='calculate()']");
+      if (calcBtn) {
+        calcBtn.addEventListener("click", function () {
+          const item = document.getElementById("c_item").value;
+          const qty = parseFloat(document.getElementById("c_qty").value) || 1;
+          const pay_unit = document.getElementById("c_pay_unit").value;
+          const pay_amt = parseFloat(document.getElementById("c_pay_amt").value) || 0;
+
+          gtag('event', 'czone_calculate', {
+            event_category: 'C區',
+            event_label: '使用者進行計算',
+            item: item,
+            quantity: qty,
+            pay_unit: pay_unit,
+            pay_amount: pay_amt
+          });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
