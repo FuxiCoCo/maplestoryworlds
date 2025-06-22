@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <title>楓幣換算與盤差分析器</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- ✅ GA4 追蹤碼：G-F5EHX89W22 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5EHX89W22"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-F5EHX89W22');
+  </script>
 </head>
 <body>
   <div class="container">
@@ -14,13 +23,10 @@
     <div style="margin-bottom: 2em; padding: 1em; background: #f9f9f9; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95em; line-height: 1.6;">
       <p>✅ <strong>第一步：A區 – 設定匯率</strong><br>
       先在 A 區輸入「1 雪花等於多少楓幣」，這個數字可以參考當天的廣播喊價或是討論串共識。</p>
-
       <p>✅ <strong>第二步：B區 – 換算其他幣種與物品</strong><br>
       B 區會根據你輸入的匯率，自動計算楓幣和雪花、WC、背包等之間的對應價格。你可以任意填一個格子，其他會自動推算。</p>
-
       <p>✅ <strong>第三步：C區 – 判斷買賣是否合理</strong><br>
       C 區是進階功能，可以幫你判斷今天看到的廣播價格盤不盤。例如看到有人開價 100 萬收背包，你就能直接輸入來比對現在成本是不是偏高。</p>
-
       <p>🧮 <strong>範例：</strong><br>
       今天大家 10 萬收一雪花，你就輸入 A 區「1 雪花 = 100,000 楓幣」<br>
       B 區會自動換算出：<br><br>
@@ -30,8 +36,7 @@
       你買 1 個 背包 的成本：約 916,666.67 楓幣<br>
       付款折算後為：1,000,000 楓幣<br>
       差額：83,333.33 楓幣（+9.09%）<br>
-      結論：虧 15% 內，屬於油水平衡
-      </p>
+      結論：虧 15% 內，屬於油水平衡</p>
     </div>
 
     <h2>A. 設定匯率</h2>
@@ -90,5 +95,21 @@
   </div>
 
   <script src="script.js"></script>
+
+  <!-- ✅ GA4 自定事件追蹤：追蹤「計算」按鈕 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const calcBtn = document.querySelector("button[onclick='calculate()']");
+      if (calcBtn) {
+        calcBtn.addEventListener("click", function () {
+          gtag('event', 'click', {
+            event_category: '按鈕',
+            event_label: '執行計算',
+            value: 1
+          });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
