@@ -1,27 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>楓幣換算與盤差分析器</title>
-  <link rel="stylesheet" href="style.css">
-
-  <!-- ✅ Google Analytics：楓幣換算專用 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EKB6SYPKPF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'G-EKB6SYPKPF');
-</script>
-
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>是盤子還是木盾</h1>
     <p><strong>楓幣換算與盤差分析器，幫你輕鬆判斷今天廣播喊價盤不盤</strong></p>
-      <h2>說明</h2>
 
-    <!-- 🔰 使用說明書區塊 -->
+    <h2>說明</h2>
     <div style="margin-bottom: 2em; padding: 1em; background: #f9f9f9; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95em; line-height: 1.6;">
       <p>✅ <strong>第一步：A區 – 設定匯率</strong><br>
       先在 A 區輸入「1 雪花等於多少楓幣」，這個數字可以參考當天的廣播喊價或是討論串共識。</p>
@@ -35,12 +24,9 @@
       <p>🧮 <strong>範例：</strong><br>
       今天大家 10 萬收一雪花，你就輸入 A 區「1 雪花 = 100,000 楓幣」<br>
       B 區會自動換算出：<br><br>
-
       1 背包 ≈ 916,666.67 楓幣<br>
       或 ≈ 9.17 雪花<br><br>
-
       如果你在 C 區輸入「背包賣價 1,000,000 楓幣」按下確認會顯示：<br><br>
-
       你買 1 個 背包 的成本：約 916,666.67 楓幣<br>
       付款折算後為：1,000,000 楓幣<br>
       差額：83,333.33 楓幣（+9.09%）<br>
@@ -48,7 +34,6 @@
       </p>
     </div>
 
-    <!-- A區 -->
     <h2>A. 設定匯率</h2>
     <div class="input-group">
       <label>1 雪花 =</label>
@@ -57,7 +42,6 @@
     </div>
     <hr>
 
-    <!-- B區 -->
     <h2>B. 單位即時計算</h2>
     <div class="calc-grid">
       <div><label>NTD<input type="number" id="b_ntd"></label></div>
@@ -70,7 +54,6 @@
     </div>
     <hr>
 
-    <!-- C區 -->
     <h2>C. 比價</h2>
     <div class="input-group">
       <label>道具單位：
@@ -103,56 +86,9 @@
     </div>
     <button onclick="calculate()">計算</button>
 
-    <!-- D區 -->
     <div id="result" class="result"></div>
   </div>
 
   <script src="script.js"></script>
-  <script>
-    window.addEventListener("DOMContentLoaded", function () {
-      // A區：追蹤匯率輸入
-      const rateInput = document.getElementById("rateSnow");
-      rateInput.addEventListener("change", function () {
-        gtag('event', 'set_rate', {
-          event_category: 'A區',
-          event_label: '匯率輸入',
-          value: parseInt(rateInput.value)
-        });
-      });
-
-      // B區：追蹤任一數值輸入
-      const bZoneFields = ['b_ntd', 'b_wc', 'b_snow', 'b_meso', 'b_bag', 'b_amulet', 'b_gem'];
-      bZoneFields.forEach(id => {
-        const field = document.getElementById(id);
-        field.addEventListener("input", function () {
-          gtag('event', 'bzone_input', {
-            event_category: 'B區',
-            event_label: id,
-            value: parseFloat(field.value) || 0
-          });
-        });
-      });
-
-      // C區：追蹤「計算」按鈕點擊
-      const calcBtn = document.querySelector("button[onclick='calculate()']");
-      if (calcBtn) {
-        calcBtn.addEventListener("click", function () {
-          const item = document.getElementById("c_item").value;
-          const qty = parseFloat(document.getElementById("c_qty").value) || 1;
-          const pay_unit = document.getElementById("c_pay_unit").value;
-          const pay_amt = parseFloat(document.getElementById("c_pay_amt").value) || 0;
-
-          gtag('event', 'czone_calculate', {
-            event_category: 'C區',
-            event_label: '使用者進行計算',
-            item: item,
-            quantity: qty,
-            pay_unit: pay_unit,
-            pay_amount: pay_amt
-          });
-        });
-      }
-    });
-  </script>
 </body>
 </html>
